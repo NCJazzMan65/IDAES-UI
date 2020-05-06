@@ -41,17 +41,21 @@ class MainWindow(Frame):
         self.master.columnconfigure(0, weight=1)
         self.master.rowconfigure(0, weight=1)
         self.master.geometry('640x480+30+30')
+        self.mastercontent = ttk.Frame(self.master, padding=(3,10,3,3))
+        self.mastercontent.grid(column=0, row=0, sticky=(N,S,E,W))
+        self.mastercontent.columnconfigure(0, weight=1)
+        self.mastercontent.rowconfigure(0, weight=1)
 
         # Create main paned window frame
-        self.mainwindowpane = ttk.Panedwindow(self.master, orient=HORIZONTAL)
+        self.mainwindowpane = ttk.Panedwindow(self.mastercontent, orient=HORIZONTAL)
         self.mainwindowpane.grid(column=0, row=0, sticky=(N,S,E,W))
-        self.toolpane = ttk.Labelframe(self.mainwindowpane, width=240, height=480)
+        self.toolpane = ttk.Labelframe(self.mainwindowpane, text="Model Library", width=240, height=480)
         self.toolpane.columnconfigure(0, weight=1)
         self.toolpane.rowconfigure(0, weight=1)
         self.sheetpane = ttk.Labelframe(self.mainwindowpane, width=400, height=480)
         self.sheetpane.columnconfigure(0, weight=1)
         self.sheetpane.rowconfigure(0, weight=1)
-        self.mainwindowpane.add(self.toolpane, text="Model Library")
+        self.mainwindowpane.add(self.toolpane)
         self.mainwindowpane.add(self.sheetpane)
 
         # Create main menu
@@ -88,15 +92,20 @@ class MainWindow(Frame):
         self.libraryframe = ttk.Frame(self.toolpane, padding=(5))
         self.libraryframe.grid(column=0, row=0, sticky=(N,S,E,W))
         self.libraryframe.columnconfigure(0, weight=1)
-        self.libraryframe.rowconfigure(0, weight=1)
+        self.libraryframe.rowconfigure(0, weight=0)
+        self.libraryframe.rowconfigure(1, weight=0)
+        self.libraryframe.rowconfigure(2, weight=1)
 
-        # Add the unit model list box widget
-        self.listboxitems = ('One','Two','Three','Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten')
-        #self.boxitems = StringVar(value=self.listboxitems)
-        #self.unitmodelslistbox = Listbox(self.libraryframe, listvariable=self.boxitems, height=20)
-        self.unitmodelslistbox = ScrollableListbox(self.libraryframe)
-        self.unitmodelslistbox.additem('Two')
-        self.unitmodelslistbox.grid(column=0, row=0, sticky=(N,S,E,W))
+        # Add the pressure changer models section
+        self.pressurechangelabel = ttk.Label(self.libraryframe, text='Pressure Changers')
+        self.pressurechangelabel.grid(column=0, row=0, sticky=(W))
+        self.pressureframe = ttk.Frame(self.libraryframe, padding=(2), relief="sunken")
+        self.pressureframe.grid(column=0, row=1, sticky=(N,S,E,W))
+        self.pumplabel = ttk.Label(self.pressureframe, text="Pump")
+        self.pumplabel.grid(column=0, row=1, sticky=(W))
+        self.pump_image = PhotoImage(file='graphics/Pump_Icon_Small.png')
+        self.pumplabel['image'] = self.pump_image
+        self.pumplabel['compound'] = "left"
 
     # Create flowsheet frame and contained widgets
     def create_flowsheetframe(self):
