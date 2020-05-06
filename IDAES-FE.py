@@ -41,14 +41,17 @@ class MainWindow(Frame):
         self.master.columnconfigure(0, weight=1)
         self.master.rowconfigure(0, weight=1)
         self.master.geometry('640x480+30+30')
-        #self.mainwindow = Toplevel(self.master)
 
         # Create main paned window frame
         self.mainwindowpane = ttk.Panedwindow(self.master, orient=HORIZONTAL)
         self.mainwindowpane.grid(column=0, row=0, sticky=(N,S,E,W))
-        self.toolpane = ttk.Labelframe(self.mainwindowpane, width=120, height=240)
-        self.sheetpane = ttk.Labelframe(self.mainwindowpane, width=200, height=240)
-        self.mainwindowpane.add(self.toolpane)
+        self.toolpane = ttk.Labelframe(self.mainwindowpane, width=240, height=480)
+        self.toolpane.columnconfigure(0, weight=1)
+        self.toolpane.rowconfigure(0, weight=1)
+        self.sheetpane = ttk.Labelframe(self.mainwindowpane, width=400, height=480)
+        self.sheetpane.columnconfigure(0, weight=1)
+        self.sheetpane.rowconfigure(0, weight=1)
+        self.mainwindowpane.add(self.toolpane, text="Model Library")
         self.mainwindowpane.add(self.sheetpane)
 
         # Create main menu
@@ -82,8 +85,7 @@ class MainWindow(Frame):
     def create_libraryframe(self):
 
         # Create the frame
-        self.libraryframe = ttk.Frame(self.toolpane, borderwidth=2, 
-                                      relief="sunken")
+        self.libraryframe = ttk.Frame(self.toolpane, padding=(5))
         self.libraryframe.grid(column=0, row=0, sticky=(N,S,E,W))
         self.libraryframe.columnconfigure(0, weight=1)
         self.libraryframe.rowconfigure(0, weight=1)
@@ -92,8 +94,8 @@ class MainWindow(Frame):
         self.listboxitems = ('One','Two','Three','Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten')
         #self.boxitems = StringVar(value=self.listboxitems)
         #self.unitmodelslistbox = Listbox(self.libraryframe, listvariable=self.boxitems, height=20)
-        self.unitmodelslistbox = Custom.ScrollableListbox(self.libraryframe)
-        self.unitmodelslistbox.listitems = StringVar(value=self.listboxitems)
+        self.unitmodelslistbox = ScrollableListbox(self.libraryframe)
+        self.unitmodelslistbox.additem('Two')
         self.unitmodelslistbox.grid(column=0, row=0, sticky=(N,S,E,W))
 
     # Create flowsheet frame and contained widgets
@@ -101,7 +103,7 @@ class MainWindow(Frame):
 
         # Create the frame
         self.flowheetframe = ttk.Frame(self.sheetpane)
-        self.flowheetframe.grid(column=1,row=0, sticky='nsew')
+        self.flowheetframe.grid(column=0,row=0, sticky='nsew')
         self.flowheetframe.columnconfigure(0, weight=1)
         self.rowconfigure(0, weight=1)
 

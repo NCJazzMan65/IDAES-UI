@@ -29,20 +29,25 @@ class ScrollableListbox(Frame):
     def __init__(self, master = None):
 
         # Initialize class variables
-        self.listitems = StringVar()
+        self.listitems = ['One']
+        self.items = StringVar(value=self.listitems)
 
         # Set the parent window
         super().__init__(master)
         self.master = master
         self.master.columnconfigure(0,weight=1)
-        self.master.columnconfigure(1, weight=1)
+        self.master.columnconfigure(1, weight=0)
         self.master.rowconfigure(0, weight=1)
 
         # Create the listbox
-        self.listbox = Listbox(self.master, listvariable=self.listitems)
+        self.listbox = Listbox(self.master, listvariable=self.items)
         self.listbox.grid(column=0, row=0, sticky=(N,S,E,W))
 
         # Create the scrollbar and tie it to listbox
         self.listscroll = ttk.Scrollbar(self.master, orient=VERTICAL, command=self.listbox.yview)
         self.listscroll.grid(column=1, row=0, sticky=(N,S))
         self.listbox['yscrollcommand'] = self.listscroll.set
+
+    # Method to add items to the listbox
+    def additem(self, itemtoadd):
+        self.listitems.append(itemtoadd)
