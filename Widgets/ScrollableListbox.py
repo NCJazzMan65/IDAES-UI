@@ -1,8 +1,8 @@
 #######################################################################
 #                                                                     #
-#                      IDAES Custom Widgets                           #
+#                    IDAES Scrollable Listbox                         #
 #                                                                     #
-#  This file contains a number of custom widget classes used in the   #
+#  This file contains a custom scrollable listbox widget used in the  #
 #  IDAES Flowsheet Editor program                                     #
 #                                                                     #
 #  Author:  Timothy A. Fuller                                         #
