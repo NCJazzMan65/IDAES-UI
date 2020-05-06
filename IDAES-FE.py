@@ -20,6 +20,7 @@ import os
 # Module imports
 from tkinter import *
 from tkinter import ttk
+import IDAESCutomWidgets as Custom
 
 
 # Define the main window
@@ -34,7 +35,7 @@ class MainWindow(Frame):
         self.master.title('IDAES Flowsheet Editor')
         self.master.columnconfigure(0, weight=1)
         self.master.rowconfigure(0, weight=1)
-        self.master.geometry('320x240+30+30')
+        self.master.geometry('640x480+30+30')
         #self.mainwindow = Toplevel(self.master)
 
         # Create main paned window frame
@@ -83,9 +84,11 @@ class MainWindow(Frame):
         self.libraryframe.rowconfigure(0, weight=1)
 
         # Add the unit model list box widget
-        self.listboxitems = ('One','Two','Three','Four')
-        self.boxitems = StringVar(value=self.listboxitems)
-        self.unitmodelslistbox = Listbox(self.libraryframe, listvariable=self.boxitems, height=20)
+        self.listboxitems = ('One','Two','Three','Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten')
+        #self.boxitems = StringVar(value=self.listboxitems)
+        #self.unitmodelslistbox = Listbox(self.libraryframe, listvariable=self.boxitems, height=20)
+        self.unitmodelslistbox = Custom.ScrollableListbox(self.libraryframe)
+        self.unitmodelslistbox.listitems = StringVar(value=self.listboxitems)
         self.unitmodelslistbox.grid(column=0, row=0, sticky=(N,S,E,W))
 
     # Create flowsheet frame and contained widgets
