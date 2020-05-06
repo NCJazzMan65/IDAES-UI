@@ -25,7 +25,7 @@ from tkinter import ttk
 sys.path.append(os.path.join(os.path.dirname(__file__), os.pardir))
 
 # Import IDAES-FE modules
-from IDAES_Widgets.ScrollableListbox import ScrollableListbox
+from idaes_widgets.scrollable_listbox import ScrollableListbox
 
 
 # Define the main window
