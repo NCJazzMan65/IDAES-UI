@@ -20,7 +20,12 @@ import os
 # Module imports
 from tkinter import *
 from tkinter import ttk
-import IDAESCutomWidgets as Custom
+
+# Add parent directory to the system path
+sys.path.append(os.path.join(os.path.dirname(__file__), os.pardir))
+
+# Import IDAES-FE modules
+from IDAES_Widgets.ScrollableListbox import ScrollableListbox
 
 
 # Define the main window
