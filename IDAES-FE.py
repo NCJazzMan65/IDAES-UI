@@ -27,6 +27,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), os.pardir))
 # Import IDAES-FE modules
 from idaes_widgets.scrollable_listbox import ScrollableListbox
 from idaes_widgets.scrollable_flowsheet import ScrollableFlowsheet
+from idaes_helpers.drag_drop import DndHandler
 
 
 # Define the main window
