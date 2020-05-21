@@ -47,6 +47,7 @@ class ScrollableFlowsheet(Frame):
         self.flowsheet = Canvas(self.master, scrollregion=(0,0,self.canvas_width,self.canvas_height))
         self.flowsheet['bg'] = 'white'
         self.flowsheet.grid(column=0, row=0, sticky=(N,S,E,W))
+        self.flowsheet.dnd_accept = self.dnd_accept
 
         # Create scrollbars
         self.vert_scroll = ttk.Scrollbar(self.master, orient=VERTICAL, command=self.flowsheet.yview)
@@ -64,3 +65,36 @@ class ScrollableFlowsheet(Frame):
                 x = i * self.grid_step
                 y = j * self.grid_step
                 self.flowsheet.create_rectangle(x, y, x+1, y+1, outline='gray', fill='gray')
+
+    # Define the drag-drop accept method
+    def dnd_accept(self, source, event):
+
+        return self
+
+    # Define drag-drop enter method
+    def dnd_enter(self, source, event):
+
+        self.flowsheet.focus_set() # Show highlight border
+        x, y = source.where(self.flowsheet, event)
+        x1, y1, x2, y2 = source.canvas.bbox(source.id)
+        dx, dy = x2-x1, y2-y1
+        self.dndid = self.flowsheet.create_rectangle(x, y, x+dx, y+dy)
+        self.dnd_motion(source, event)
+
+    # Define drag-drop in motion method
+    def dnd_motion(self, source, event):
+        x, y = source.where(self.flowsheet, event)
+        x1, y1, x2, y2 = self.flowsheet.bbox(self.dndid)
+        self.flowsheet.move(self.dndid, x-x1, y-y1)
+
+    # Define drag-drop leave method
+    def dnd_leave(self, source, event):
+        self.top.focus_set() # Hide highlight border
+        self.flowsheet.delete(self.dndid)
+        self.dndid = None
+
+    # Define drag-drop commit method
+    def dnd_commit(self, source, event):
+        self.dnd_leave(source, event)
+        x, y = source.where(self.flowsheet, event)
+        source.attach(self.flowsheet, x, y)
