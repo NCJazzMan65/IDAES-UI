@@ -15,12 +15,16 @@
 ########################################################################
 
 """
-Pump unit operations model widget for theIDAES Flowsheet Editor
+Pump unit operations model widget for the IDAES Flowsheet Editor
 """
 
 
 # System imports
 import sys
+
+# Module imports
+from tkinter import *
+from tkinter import ttk
 
 
 # Define the pump class
@@ -28,7 +32,10 @@ class Pump:
 
     # Initialize this instance
     def __init__(self, name):
+        
+        # Create instance variables
         self.name = name
         self.canvas = None
         self.button = None
         self.id = None
+        self.icon = PhotoImage(file='../graphics/Pump_Icon.png')
