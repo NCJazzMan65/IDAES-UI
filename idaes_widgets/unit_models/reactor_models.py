@@ -1,15 +1,22 @@
 #############################################################################
 #                                                                           #
-#                   IDAES Equilibrium Reactor Unit Model                    #
+#                       IDAES Reactor Unit Models                           #
 #                                                                           #
-#  This file contains an equilibrium reactor unit model widget used in the  #
-#  IDAES Flowsheet Editor program.  The equilibrium reactor model widget    #
-#  contains methods for specifying the configuration of the equilibrium     #
+#  This file contains several different reactor unit model widgets used in  #
+#  the IDAES Flowsheet Editor program. These reactor model widgets contain  #
+#  methods for specifying the configuration of the specific reactor and     #
 #  reactor and methods for supporting drag-drop operations on the           #
 #  flowsheet.                                                               #
 #                                                                           #
+#  Unit model widgets included in this file are:                            #
+#    - Continuous Stirred Tank Reactor                                      #
+#    - Equilibrium Reactor                                                  #
+#    - Gibbs Reactor                                                        #
+#    - Plug Flow Reactor                                                    #
+#    - Stoichionetric (Yield) Reactor                                       #
+#                                                                           #
 #  Author:  Timothy A. Fuller                                               #
-#  Date:  5/29/2020                                                         #
+#  Date:  6/3/2020                                                          #
 #                                                                           #
 #  Version:  1.0.0                                                          #
 #                                                                           #

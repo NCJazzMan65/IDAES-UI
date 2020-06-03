@@ -61,13 +61,12 @@ class DraggableWidget:
             self.detach()
         if not canvas:
             return
-        label = tkinter.Label(canvas, text=self.name,
-                              borderwidth=2, relief="raised")
-        id = canvas.create_window(x, y, window=label, anchor="nw")
+        button = tkinter.Button(canvas, image=self.icon, borderwidth=2)
+        id = canvas.create_window(x, y, window=button, anchor="nw")
         self.canvas = canvas
-        self.label = label
+        self.button = button
         self.id = id
-        label.bind("<ButtonPress>", self.press)
+        button.bind("<ButtonPress>", self.press)
 
     # Method to remove widget from original location at drag start
     def detach(self):
@@ -75,10 +74,10 @@ class DraggableWidget:
         if not canvas:
             return
         id = self.id
-        label = self.label
-        self.canvas = self.label = self.id = None
+        button = self.button
+        self.canvas = self.button = self.id = None
         canvas.delete(id)
-        label.destroy()
+        button.destroy()
 
     # Method to handle mouse button press at drag start 
     def press(self, event):
