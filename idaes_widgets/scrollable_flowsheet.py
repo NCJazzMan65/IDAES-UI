@@ -68,12 +68,10 @@ class ScrollableFlowsheet(Frame):
 
     # Define the drag-drop accept method
     def dnd_accept(self, source, event):
-
         return self
 
     # Define drag-drop enter method
     def dnd_enter(self, source, event):
-
         self.flowsheet.focus_set() # Show highlight border
         x, y = source.where(self.flowsheet, event)
         x1, y1, x2, y2 = source.canvas.bbox(source.id)

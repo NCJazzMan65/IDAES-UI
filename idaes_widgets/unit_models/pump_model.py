@@ -21,10 +21,17 @@ Pump unit operations model widget for the IDAES Flowsheet Editor
 
 # System imports
 import sys
+import os
 
 # Module imports
 from tkinter import *
 from tkinter import ttk
+
+# Add parent directory to the system path
+sys.path.append(os.path.join(os.path.dirname(__file__), os.pardir))
+
+# IDAES FE module imports
+from idaes_widgets.draggable_widget import DraggableWidget
 
 
 # Define the pump class
@@ -33,9 +40,6 @@ class Pump:
     # Initialize this instance
     def __init__(self, name):
         
-        # Create instance variables
-        self.name = name
-        self.canvas = None
-        self.button = None
-        self.id = None
-        self.icon = PhotoImage(file='../graphics/Pump_Icon.png')
+        # Call parent initialize method
+        icon = PhotoImage(file='../graphics/Pump_Icon.png')
+        super().__init__(name, icon)
