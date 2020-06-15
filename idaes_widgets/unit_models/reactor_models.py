@@ -43,7 +43,7 @@ from idaes_widgets.draggable_widget import DraggableWidget
 
 
 # Define feed block class
-class EquilReactor:
+class EquilReactor(DraggableWidget):
 
     # Initialize this instance
     def __init__(self, name):

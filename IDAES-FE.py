@@ -116,11 +116,16 @@ class MainWindow(Frame):
         self.pressurechangelabel.grid(column=0, row=0, sticky=(W))
         self.pressureframe = ttk.Frame(self.librarybox, padding=(2), relief="sunken")
         self.pressureframe.grid(column=0, row=1, sticky=(N,S,E,W))
-        self.pumplabel = ttk.Label(self.pressureframe, text="Pump")
-        self.pumplabel.grid(column=0, row=1, sticky=(W))
-        self.pump_image = PhotoImage(file='graphics/Pump_Icon_30x30.png')
-        self.pumplabel['image'] = self.pump_image
-        self.pumplabel['compound'] = "left"
+        #self.pumplabel = ttk.Label(self.pressureframe, text="Pump")
+        #self.pumplabel.grid(column=0, row=1, sticky=(W))
+        #self.pump_image = PhotoImage(file='graphics/Pump_Icon_30x30.png')
+        #self.pumplabel['image'] = self.pump_image
+        #self.pumplabel['compound'] = "left"
+        self.pumpcanvas = Canvas(self.pressureframe)
+        self.pumpcanvas.grid(column=0, row=1, sticky=(W))
+        self.pumpicon = Pump("Pump")
+        self.pumpicon.attach(self.pumpcanvas)
+        
 
     # Create flowsheet tabs
     def create_flowsheet_notebook(self):
@@ -144,6 +149,10 @@ class MainWindow(Frame):
         # Add a new flowsheet canvas to notebook frame
         self.flowsheet = ScrollableFlowsheet(self.newtab)
         self.flowsheet.grid(column=0, row=0, sticky=(N,S,E,W))
+
+        # Add test widget to flowsheet canvas
+        self.pump101 = Pump("Pump101")
+        self.pump101.attach(self.flowsheet.flowsheet)
 
 # Define main method
 def main():

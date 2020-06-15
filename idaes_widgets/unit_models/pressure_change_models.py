@@ -41,7 +41,7 @@ from idaes_widgets.draggable_widget import DraggableWidget
 
 
 # Define the pump class
-class Pump:
+class Pump(DraggableWidget):
 
     # Initialize this instance
     def __init__(self, name):

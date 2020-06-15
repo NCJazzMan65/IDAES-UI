@@ -31,6 +31,19 @@ sys.path.append(os.path.join(os.path.dirname(__file__), os.pardir))
 # IDAES FE module imports
 from idaes_helpers.drag_drop import DndHandler
 
+# Declare exported methods
+__all__ = ["dnd_start", "DndHandler"]
+
+
+# Factory method for drag-drop handler
+def dnd_start(source, event):
+    h = DndHandler(source, event)
+    if h.root:
+        return h
+    else:
+        return None
+
+
 # Define the draggable widget class
 class DraggableWidget:
 
@@ -41,17 +54,9 @@ class DraggableWidget:
         self.name = name
         self.icon = icon
         self.canvas = None
-        self.button = None
+        self.label = None
         self.id = None
     
-    # Factory method for drag-drop handler
-    def dnd_start(self, source, event):
-        h = DndHandler(source, event)
-        if h.root:
-            return h
-        else:
-            return None
-
     # Method to drop widget in new location
     def attach(self, canvas, x=10, y=10):
         if canvas is self.canvas:
@@ -61,12 +66,13 @@ class DraggableWidget:
             self.detach()
         if not canvas:
             return
-        button = tkinter.Button(canvas, image=self.icon, borderwidth=2)
-        id = canvas.create_window(x, y, window=button, anchor="nw")
+        label = tkinter.Label(canvas, text=self.name, image=self.icon, compound="top",
+                              borderwidth=2, relief="raised")
+        id = canvas.create_window(x, y, window=label, anchor="nw")
         self.canvas = canvas
-        self.button = button
+        self.label = label
         self.id = id
-        button.bind("<ButtonPress>", self.press)
+        label.bind("<ButtonPress>", self.press)
 
     # Method to remove widget from original location at drag start
     def detach(self):
@@ -74,10 +80,10 @@ class DraggableWidget:
         if not canvas:
             return
         id = self.id
-        button = self.button
-        self.canvas = self.button = self.id = None
+        label = self.label
+        self.canvas = self.label = self.id = None
         canvas.delete(id)
-        button.destroy()
+        label.destroy()
 
     # Method to handle mouse button press at drag start 
     def press(self, event):

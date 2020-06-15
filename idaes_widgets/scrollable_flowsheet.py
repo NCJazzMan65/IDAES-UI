@@ -72,7 +72,7 @@ class ScrollableFlowsheet(Frame):
 
     # Define drag-drop enter method
     def dnd_enter(self, source, event):
-        self.flowsheet.focus_set() # Show highlight border
+        #self.flowsheet.focus_set() # Show highlight border
         x, y = source.where(self.flowsheet, event)
         x1, y1, x2, y2 = source.canvas.bbox(source.id)
         dx, dy = x2-x1, y2-y1
@@ -87,7 +87,7 @@ class ScrollableFlowsheet(Frame):
 
     # Define drag-drop leave method
     def dnd_leave(self, source, event):
-        self.top.focus_set() # Hide highlight border
+        #self.top.focus_set() # Hide highlight border
         self.flowsheet.delete(self.dndid)
         self.dndid = None
 
