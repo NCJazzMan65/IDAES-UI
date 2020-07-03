@@ -48,11 +48,14 @@ def dnd_start(source, event):
 class DraggableWidget:
 
     # Initialize this instance
-    def __init__(self, name, icon):
+    def __init__(self, name, icon, height=50, width=50, orient="top"):
 
         # Create instance variables
         self.name = name
         self.icon = icon
+        self.height = height
+        self.width = width
+        self.orient = orient
         self.canvas = None
         self.label = None
         self.id = None
@@ -66,8 +69,9 @@ class DraggableWidget:
             self.detach()
         if not canvas:
             return
-        label = tkinter.Label(canvas, text=self.name, image=self.icon, compound="top",
-                              borderwidth=2, relief="raised")
+        label = tkinter.Label(canvas, text=self.name, image=self.icon, compound=self.orient,
+                              borderwidth=2, relief="raised", 
+                              height=self.height, width=self.width)
         id = canvas.create_window(x, y, window=label, anchor="nw")
         self.canvas = canvas
         self.label = label

@@ -46,8 +46,8 @@ from idaes_widgets.draggable_widget import DraggableWidget
 class EquilReactor(DraggableWidget):
 
     # Initialize this instance
-    def __init__(self, name):
+    def __init__(self, name, height=50, width=50, orient="top"):
 
         # Call parent initialize method
         icon = PhotoImage(file='../graphics/Equil_Reactor_Icon.png')
-        super().__init__(name, icon)
+        super().__init__(name, icon, height, width, orient)

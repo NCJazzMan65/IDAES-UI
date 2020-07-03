@@ -47,11 +47,8 @@ class MainWindow(Frame):
         self.master.rowconfigure(0, weight=1)
         self.master.geometry('640x480+30+30')
         self.master.option_add('*tearOff',FALSE)
-        self.mastercontent = ttk.Frame(self.master, padding=(3,10,3,3))
+        self.mastercontent = ttk.PanedWindow(self.master, orient=HORIZONTAL)
         self.mastercontent.grid(column=0, row=0, sticky=(N,S,E,W))
-        self.mastercontent.columnconfigure(0, weight=0)
-        self.mastercontent.columnconfigure(1, weight=1)
-        self.mastercontent.rowconfigure(0, weight=1)
 
         # Create main menu
         self.create_menu()
@@ -88,15 +85,18 @@ class MainWindow(Frame):
 
         # Create the model library group box
         self.librarybox = ttk.Labelframe(self.mastercontent, text='Model Library', padding=(5))
-        self.librarybox.grid(column=0, row=0, sticky=(N,S,E,W))
+        self.mastercontent.add(self.librarybox, weight=1)
         self.librarybox.columnconfigure(0, weight=1)
         self.librarybox.rowconfigure(0, weight=0)
         self.librarybox.rowconfigure(1, weight=0)
+        self.librarybox.rowconfigure(2, weight=0)
+        self.librarybox.rowconfigure(3, weight=0)
+        self.librarybox.rowconfigure(4, weight=0)
         self.librarybox.rowconfigure(2, weight=1)
 
         # Create the flowsheet frame
         self.flowsheetframe = ttk.Frame(self.mastercontent, padding=(5))
-        self.flowsheetframe.grid(column=1,row=0, sticky=(N,S,E,W))
+        self.mastercontent.add(self.flowsheetframe, weight=3)
         self.flowsheetframe.columnconfigure(0, weight=1)
         self.flowsheetframe.rowconfigure(0, weight=1)
 
@@ -112,20 +112,28 @@ class MainWindow(Frame):
     def create_model_library(self):
 
         # Add the pressure changer models section
-        self.pressurechangelabel = ttk.Label(self.librarybox, text='Pressure Changers')
+        self.pressurechangelabel = ttk.Label(self.librarybox, text='Pressure Changers', padding=(2))
         self.pressurechangelabel.grid(column=0, row=0, sticky=(W))
         self.pressureframe = ttk.Frame(self.librarybox, padding=(2), relief="sunken")
         self.pressureframe.grid(column=0, row=1, sticky=(N,S,E,W))
-        #self.pumplabel = ttk.Label(self.pressureframe, text="Pump")
-        #self.pumplabel.grid(column=0, row=1, sticky=(W))
-        #self.pump_image = PhotoImage(file='graphics/Pump_Icon_30x30.png')
-        #self.pumplabel['image'] = self.pump_image
-        #self.pumplabel['compound'] = "left"
-        self.pumpcanvas = Canvas(self.pressureframe)
-        self.pumpcanvas.grid(column=0, row=1, sticky=(W))
-        self.pumpicon = Pump("Pump")
+        self.pressureframe.columnconfigure(0, weight=1)
+        self.pressureframe.rowconfigure(0, weight=1)
+        self.pumpcanvas = Canvas(self.pressureframe, width=100)
+        self.pumpcanvas.grid(column=0, row=0, sticky=(N,S,E,W))
+        self.pumpicon = Pump(name="Pump", height=50, width=100, orient="left")
         self.pumpicon.attach(self.pumpcanvas)
-        
+
+        # Add the reactor models section
+        self.reactorlabel = ttk.Label(self.librarybox, text="Reactors", padding=(2))
+        self.reactorlabel.grid(column=0, row=3, sticky=(W))
+        self.reactorframe = ttk.Frame(self.librarybox, padding=(2), relief="sunken")
+        self.reactorframe.grid(column=0, row=4, sticky=(N,S,E,W))
+        self.reactorframe.columnconfigure(0, weight=1)
+        self.reactorframe.rowconfigure(0, weight=1)
+        self.reactorcanvas = Canvas(self.reactorframe, width=100)
+        self.reactorcanvas.grid(column=0, row=0, sticky=(N,S,E,W))
+        self.equilreactoricon = EquilReactor(name="Equil", height=50, width=100, orient="left")
+        self.equilreactoricon.attach(self.reactorcanvas)
 
     # Create flowsheet tabs
     def create_flowsheet_notebook(self):
@@ -151,7 +159,7 @@ class MainWindow(Frame):
         self.flowsheet.grid(column=0, row=0, sticky=(N,S,E,W))
 
         # Add test widget to flowsheet canvas
-        self.pump101 = Pump("Pump101")
+        self.pump101 = Pump(name="Pump101", height=100, width=100)
         self.pump101.attach(self.flowsheet.flowsheet)
 
 # Define main method
