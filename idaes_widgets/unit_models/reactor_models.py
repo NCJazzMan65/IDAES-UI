@@ -23,7 +23,7 @@
 #############################################################################
 
 """
-Equilibrium Reactor unit operations model widget for the IDAES Flowsheet Editor
+Reactor unit operations model widgets for the IDAES Flowsheet Editor
 """
 
 

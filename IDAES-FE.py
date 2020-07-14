@@ -27,6 +27,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), os.pardir))
 # Import IDAES-FE modules
 from idaes_widgets.scrollable_listbox import ScrollableListbox
 from idaes_widgets.scrollable_flowsheet import ScrollableFlowsheet
+from idaes_widgets.flowsheet_toolbox import Toolbox
 from idaes_widgets.unit_models.miscellaneous_models import FeedBlock, ProductBlock
 from idaes_widgets.unit_models.pressure_change_models import Pump
 from idaes_widgets.unit_models.reactor_models import EquilReactor
@@ -92,7 +93,7 @@ class MainWindow(Frame):
         self.librarybox.rowconfigure(2, weight=0)
         self.librarybox.rowconfigure(3, weight=0)
         self.librarybox.rowconfigure(4, weight=0)
-        self.librarybox.rowconfigure(2, weight=1)
+        self.librarybox.rowconfigure(5, weight=1)
 
         # Create the flowsheet frame
         self.flowsheetframe = ttk.Frame(self.mastercontent, padding=(5))

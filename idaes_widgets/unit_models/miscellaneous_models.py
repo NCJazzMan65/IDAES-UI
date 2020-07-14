@@ -48,7 +48,7 @@ class FeedBlock(DraggableWidget):
         super().__init__(name, icon)
 
 
-# Define feed block class
+# Define product block class
 class ProductBlock(DraggableWidget):
 
     # Initialize this instance
