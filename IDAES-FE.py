@@ -27,15 +27,15 @@ sys.path.append(os.path.join(os.path.dirname(__file__), os.pardir))
 # Import IDAES-FE modules
 from idaes_widgets.scrollable_listbox import ScrollableListbox
 from idaes_widgets.scrollable_flowsheet import ScrollableFlowsheet
-from idaes_widgets.flowsheet_toolbox import Toolbox
 from idaes_widgets.unit_models.miscellaneous_models import FeedBlock, ProductBlock
 from idaes_widgets.unit_models.pressure_change_models import Pump
 from idaes_widgets.unit_models.reactor_models import EquilReactor
 from idaes_helpers.drag_drop import DndHandler
+from idaes_widgets.flowsheet_toolbox import Toolbox
 
 
 # Define the main window
-class MainWindow(Frame):
+class MainWindow(ttk.Frame):
 
     # Override initialization method
     def __init__(self, master = None):
@@ -56,9 +56,6 @@ class MainWindow(Frame):
 
         # Create main display areas
         self.create_main_areas()
-
-        # Create unit model library
-        self.create_model_library()
 
         # Create flowsheet editing notebook
         self.create_flowsheet_notebook()
@@ -84,58 +81,16 @@ class MainWindow(Frame):
     # Create the library frame and contained widgets
     def create_main_areas(self):
 
-        # Create the model library group box
-        self.librarybox = ttk.Labelframe(self.mastercontent, text='Model Library', padding=(5))
+        # Create the model library
+        self.librarybox = Toolbox(master=self.mastercontent)
         self.mastercontent.add(self.librarybox, weight=1)
-        self.librarybox.columnconfigure(0, weight=1)
-        self.librarybox.rowconfigure(0, weight=0)
-        self.librarybox.rowconfigure(1, weight=0)
-        self.librarybox.rowconfigure(2, weight=0)
-        self.librarybox.rowconfigure(3, weight=0)
-        self.librarybox.rowconfigure(4, weight=0)
-        self.librarybox.rowconfigure(5, weight=1)
 
-        # Create the flowsheet frame
+        # Create the flowsheet editor frame
         self.flowsheetframe = ttk.Frame(self.mastercontent, padding=(5))
         self.mastercontent.add(self.flowsheetframe, weight=3)
         self.flowsheetframe.columnconfigure(0, weight=1)
         self.flowsheetframe.rowconfigure(0, weight=1)
-
-        # Create the model library frame
-        # self.libraryframe = ttk.Frame(self.toolpane, padding=(5))
-        # self.libraryframe.grid(column=0, row=0, sticky=(N,S,E,W))
-        # self.libraryframe.columnconfigure(0, weight=1)
-        # self.libraryframe.rowconfigure(0, weight=0)
-        # self.libraryframe.rowconfigure(1, weight=0)
-        # self.libraryframe.rowconfigure(2, weight=1)
-
-    # Create unit model library
-    def create_model_library(self):
-
-        # Add the pressure changer models section
-        self.pressurechangelabel = ttk.Label(self.librarybox, text='Pressure Changers', padding=(2))
-        self.pressurechangelabel.grid(column=0, row=0, sticky=(W))
-        self.pressureframe = ttk.Frame(self.librarybox, padding=(2), relief="sunken")
-        self.pressureframe.grid(column=0, row=1, sticky=(N,S,E,W))
-        self.pressureframe.columnconfigure(0, weight=1)
-        self.pressureframe.rowconfigure(0, weight=1)
-        self.pumpcanvas = Canvas(self.pressureframe, width=100)
-        self.pumpcanvas.grid(column=0, row=0, sticky=(N,S,E,W))
-        self.pumpicon = Pump(name="Pump", height=50, width=100, orient="left")
-        self.pumpicon.attach(self.pumpcanvas)
-
-        # Add the reactor models section
-        self.reactorlabel = ttk.Label(self.librarybox, text="Reactors", padding=(2))
-        self.reactorlabel.grid(column=0, row=3, sticky=(W))
-        self.reactorframe = ttk.Frame(self.librarybox, padding=(2), relief="sunken")
-        self.reactorframe.grid(column=0, row=4, sticky=(N,S,E,W))
-        self.reactorframe.columnconfigure(0, weight=1)
-        self.reactorframe.rowconfigure(0, weight=1)
-        self.reactorcanvas = Canvas(self.reactorframe, width=100)
-        self.reactorcanvas.grid(column=0, row=0, sticky=(N,S,E,W))
-        self.equilreactoricon = EquilReactor(name="Equil", height=50, width=100, orient="left")
-        self.equilreactoricon.attach(self.reactorcanvas)
-
+        
     # Create flowsheet tabs
     def create_flowsheet_notebook(self):
 
@@ -160,8 +115,8 @@ class MainWindow(Frame):
         self.flowsheet.grid(column=0, row=0, sticky=(N,S,E,W))
 
         # Add test widget to flowsheet canvas
-        self.pump101 = Pump(name="Pump101", height=100, width=100)
-        self.pump101.attach(self.flowsheet.flowsheet)
+        #self.pump101 = Pump(name="Pump101", height=100, width=100)
+        #self.pump101.attach(self.flowsheet.flowsheet)
 
 # Define main method
 def main():
